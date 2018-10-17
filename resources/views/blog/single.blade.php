@@ -7,7 +7,9 @@
             <h1>{{ $post->title }}</h1>
             <p>{!! $post->body !!}</p>
             <hr>
-            <p> Posted in: {{ $post->category->name }}</p>
+            <p> Posted in: {{ $post->category->name }} by <a href="{{ route('getUser' , $post->user->id) }}"> {{ $post->user->name }}</a></p>
+
+            <hr>
         </div>
     </div>
 
@@ -36,20 +38,12 @@
         </div>
     </div>
 
+    @if(Auth::check())
     <div class="row">
         <div id="comment-form" class="col-md-8  col-md-offset-2" style="margin-top: 50px">
             {{ Form::open(['route' => ['comments.store' , $post->id], 'method' => 'POST']) }}
 
-                <div class="row">
-                    <div class="col-md-6">
-                        {{ Form::label('name' , 'Name:') }}
-                        {{ Form::text('name' , null, ['class' => 'form-control']) }}
-                    </div>
 
-                    <div class="col-md-6">
-                        {{ Form::label('email' , 'Email:') }}
-                        {{ Form::text('email' , null, ['class' => 'form-control']) }}
-                    </div>
 
                     <div class="col-md-12">
                         {{ Form::label('comment' , 'Comment:') }}
@@ -64,4 +58,11 @@
             {{ Form::close() }}
         </div>
     </div>
+    @else
+        <div style="margin-bottom: 18px; , font-family: sans-serif; " class="text-center">
+
+            <h3>Enter, to add comment</h3>
+            <hr>
+        </div>
+    @endif
 @endsection

@@ -35,8 +35,10 @@
                                 <td>{{ $comment->email }}</td>
                                 <td>{{ $comment->comment }}</td>
                                 <td>
+                                    @isAdmin
                                     <a href="{{ route('comments.edit' , $comment->id) }}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
                                     <a href="{{ route('comments.delete' ,$comment->id) }}" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    @endisAdmin
 
                                 </td>
 

@@ -9,6 +9,8 @@ use App\Category;
 use App\Tag;
 use Intervention\Image\Facades\Image as Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 
 class PostController extends Controller
 {
@@ -25,7 +27,17 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(9);
+
+         if(Auth::user()->is_admin){
+
+             $posts = Post::orderBy('id', 'desc')->paginate(9);
+
+         } else{
+
+             $posts = Post::where('user_id', Auth::user()->id)->orderBy('id' , 'DESC')->paginate(9);
+
+         }
+
         return view('posts.index')->with('posts' , $posts);
     }
 
@@ -59,6 +71,7 @@ class PostController extends Controller
         ));
 
         $post = new Post;
+        $post->user_id = Auth::user()->id;
         $post->title = $request->title;
         $post->slug = $request->slug;
         $post->category_id = $request->category_id;

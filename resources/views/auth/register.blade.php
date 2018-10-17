@@ -22,6 +22,9 @@
                         {{ Form::label('password_confirmation', 'Confirm password:') }}
                         {{ Form::password('password_confirmation' , ['class' => 'form-control']) }}
 
+                        {{ Form::label('is_admin', 'Register as  admin'  , ['style' => 'margin-top:10px']) }}
+                        {{ Form::checkbox('is_admin', null,null, ['class' => 'form-check']) }}
+
                         <div style="margin-top: 18px">
                         {{ Form::submit('Register', ['class' => 'btn btn-primary']) }}
                         </div>
